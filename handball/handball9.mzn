@@ -130,87 +130,87 @@ int: AB_20 = 39;
 int: HB_20 = 40;
 
 array[int,int] of int: transition =
-    		  [|  A_1,   B_1,   H_1  % INIT, start state
-		   | AB_2,     0,  HB_2  % B_1
-		   |    0,  AB_2,   H_2  % A_1
-		   |  A_2,  HB_2,     0  % H_1
-		   |    0,  AB_3,   H_3  % A_2
-		   |  A_3,  HB_3,     0  % H_2
-		   |    0,     0,  HB_3  % AB_2
-		   | AB_3,     0,     0  % HB_2
-		   |    0,  AB_4,   H_4  % A_3
-		   |  A_4,  HB_4,     0  % H_3
-		   |    0,     0,  HB_4  % AB_3
-		   | AB_4,     0,     0  % HB_3
-		   |    0,  AB_5,   H_5  % A_4
-		   |  A_5,  HB_5,     0  % H_4
-		   |    0,     0,  HB_5  % AB_4
-		   | AB_5,     0,     0  % HB_4
-		   |    0,  AB_6,   H_6  % A_5
-		   |  A_6,  HB_6,     0  % H_5
-		   |    0,     0,  HB_6  % AB_5
-		   | AB_6,     0,     0  % HB_5
+    [|  A_1,   B_1,   H_1  % INIT, start state
+     | AB_2,     0,  HB_2  % B_1
+     |    0,  AB_2,   H_2  % A_1
+     |  A_2,  HB_2,     0  % H_1
+     |    0,  AB_3,   H_3  % A_2
+     |  A_3,  HB_3,     0  % H_2
+     |    0,     0,  HB_3  % AB_2
+     | AB_3,     0,     0  % HB_2
+     |    0,  AB_4,   H_4  % A_3
+     |  A_4,  HB_4,     0  % H_3
+     |    0,     0,  HB_4  % AB_3
+     | AB_4,     0,     0  % HB_3
+     |    0,  AB_5,   H_5  % A_4
+     |  A_5,  HB_5,     0  % H_4
+     |    0,     0,  HB_5  % AB_4
+     | AB_5,     0,     0  % HB_4
+     |    0,  AB_6,   H_6  % A_5
+     |  A_6,  HB_6,     0  % H_5
+     |    0,     0,  HB_6  % AB_5
+     | AB_6,     0,     0  % HB_5
 
-		   |    0,  AB_7,   H_7  % A_6
-		   |  A_7,  HB_7,     0  % H_6
-		   |    0,     0,  HB_7  % AB_6
-		   | AB_7,     0,     0  % HB_6
+     |    0,  AB_7,   H_7  % A_6
+     |  A_7,  HB_7,     0  % H_6
+     |    0,     0,  HB_7  % AB_6
+     | AB_7,     0,     0  % HB_6
 
-		   |    0,  AB_8,   H_8  % A_7
-		   |  A_8,  HB_8,     0  % H_7
-		   |    0,     0,  HB_8  % AB_7
-		   | AB_8,     0,     0  % HB_7
+     |    0,  AB_8,   H_8  % A_7
+     |  A_8,  HB_8,     0  % H_7
+     |    0,     0,  HB_8  % AB_7
+     | AB_8,     0,     0  % HB_7
 
-		   |    0,  AB_9,     0  % A_8
-		   |    0,  HB_9,     0  % H_8
-		   |    0,     0,  HB_9  % AB_8
-		   | AB_9,     0,     0  % HB_8
+     |    0,  AB_9,     0  % A_8
+     |    0,  HB_9,     0  % H_8
+     |    0,     0,  HB_9  % AB_8
+     | AB_9,     0,     0  % HB_8
 
-		   |    0,     0, HB_10  % AB_9
-		   |AB_10,     0,     0  % HB_9
+     |    0,     0, HB_10  % AB_9
+     |AB_10,     0,     0  % HB_9
 
-		   |    0,     0, HB_11  % AB_10, accept state
-		   | AB_11,    0,     0  % HB_10, accept state
+     |    0,     0, HB_11  % AB_10, accept state
+     | AB_11,    0,     0  % HB_10, accept state
 
-		   |AB_20,     0, HB_10  % AB_11
-		   |AB_10,     0, HB_20  % HB_11
-		   |    0,     0, HB_20  % AB_20, accept state
-		   |AB_20,     0,     0  % HB_20, accept state
-		   |];
+     |AB_20,     0, HB_10  % AB_11
+     |AB_10,     0, HB_20  % HB_11
+     |    0,     0, HB_20  % AB_20, accept state
+     |AB_20,     0,     0  % HB_20, accept state
+     |];
 
 % cost function
 
 predicate part_cost(var breakable: bt, var team: r, var team: t, var 0..max(allperiod): part) ::presolve = (
     if dopresolve then
-	bt in breakable /\
-	let {array[period] of var A..H: lhap} in (
-	    channel_break_hap(bt, lhap, r) /\
-	    part = sum(p in period     where nohome[t,p]=1)(bool2int(lhap[p]                            =H)) +
-	           sum(p in third_tour where nohome[t,p]=1)(bool2int(lhap[min(third_tour)+max(period)-p]=A))
-	    )
+        bt in breakable /\
+        let {array[period] of var A..H: lhap} in (
+            channel_break_hap(bt, lhap, r) /\
+            part = sum(p in period     where nohome[t,p]=1)(bool2int(lhap[p]                            =H)) +
+                   sum(p in third_tour where nohome[t,p]=1)(bool2int(lhap[min(third_tour)+max(period)-p]=A))
+        )
     else
-	    part = sum(p in period     where nohome[t,p]=1)(bool2int(hap[p,r]                            =H)) +
-	           sum(p in third_tour where nohome[t,p]=1)(bool2int(hap[min(third_tour)+max(period)-p,r]=A))
+        part = sum(p in period     where nohome[t,p]=1)(bool2int(hap[p,r]                            =H)) +
+               sum(p in third_tour where nohome[t,p]=1)(bool2int(hap[min(third_tour)+max(period)-p,r]=A))
     endif
 );
 
 constraint
     if not dopresolve then
-	cost = sum(t in team, p in period  where nohome[t,p]=1)(bool2int(hap[p,rowof[t]]=H))
-	     + sum(t in team, p in third_tour where nohome[t,p]=1)(bool2int(hap[min(third_tour)+max(period)-p,rowof[t]]=A))
+        cost = sum(t in team, p in period  where nohome[t,p]=1)(bool2int(hap[p,rowof[t]]=H))
+             + sum(t in team, p in third_tour where nohome[t,p]=1)(bool2int(hap[min(third_tour)+max(period)-p,rowof[t]]=A))
     else
         let {array[team] of var 0..max(allperiod): rowcost} in (
-	    forall(t in team)(part_cost(break[t], t, teamof[t], rowcost[t])) /\
-	    cost = sum(t in team)(rowcost[t])
-	)
+            forall(t in team)(part_cost(break[t], t, teamof[t], rowcost[t])) /\
+            cost = sum(t in team)(rowcost[t])
+        )
     endif;
 
 % division assignment
 
 constraint
     let {var bool: NS} in (
-	forall(t in group1)(NS <-> rowof[t] in north_team) /\
-	forall(t in group2)(NS <-> rowof[t] in south_team)
+        forall(t in group1)(NS <-> rowof[t] in north_team) /\
+        forall(t in group2)(NS <-> rowof[t] in south_team)
     );
 
 constraint
@@ -229,24 +229,24 @@ constraint
 
 % channel break <---> hap (2)
 predicate channel_break_hap(var breakable: bt, array[period] of var A..H: hapt, var team: t) ::presolve(model) =
-	bt in breakable /\
-	(t in north_team -> hapt[(t mod divsize)+1] = A) /\
-	(t in south_team -> hapt[(t mod divsize)+1] = H) /\
-	hapt[((t-1) mod divsize)+1] = B /\
-	forall(p in breakable diff {0})(
-	    bt = p <-> hapt[p]=hapt[p+1]
-	) /\
-	regular([hapt[p] | p in period],
-		HB_20, % last state
-		H,     % last symbol
-		transition,
-		INIT,  % start state
-		{AB_10,HB_10,AB_20,HB_20} % accept states
-		);
+    bt in breakable /\
+    (t in north_team -> hapt[(t mod divsize)+1] = A) /\
+    (t in south_team -> hapt[(t mod divsize)+1] = H) /\
+    hapt[((t-1) mod divsize)+1] = B /\
+    forall(p in breakable diff {0})(
+        bt = p <-> hapt[p]=hapt[p+1]
+    ) /\
+    regular([hapt[p] | p in period],
+    HB_20, % last state
+    H,     % last symbol
+    transition,
+    INIT,  % start state
+    {AB_10,HB_10,AB_20,HB_20} % accept states
+    );
 
 constraint
     forall(t in team)(
-	channel_break_hap(break[t], [hap[p,t] | p in period], t)
+        channel_break_hap(break[t], [hap[p,t] | p in period], t)
     );
 
 % RRT (5)
@@ -268,8 +268,8 @@ constraint
 constraint
     forall(p in period, t in team)(
         let {var team: ctw = contestant[p,t]} in (
-	    hap[p,ctw] + hap[p,t] = A+H
-	)
+            hap[p,ctw] + hap[p,t] = A+H
+        )
     );
 
 % AVR rule (1) (8)
@@ -295,8 +295,8 @@ constraint
 % 1st row and 1st column complementary for each division (18)
 constraint
     forall(t in north_team)(
-	hap[t,1] + hap[1,t] = A+H /\
-	hap[t,1+divsize] + hap[1,t+divsize] = A+H
+        hap[t,1] + hap[1,t] = A+H /\
+        hap[t,1+divsize] + hap[1,t+divsize] = A+H
     );
 
 %% SOLVING AND OUTPUTTING
