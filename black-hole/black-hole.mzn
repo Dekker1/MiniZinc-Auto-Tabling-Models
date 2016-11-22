@@ -90,10 +90,10 @@ array[1..52] of var 1..52: y;
 constraint x[1] == 1;
 
 % Consecutive cards match
-predicate rank_apart(var 1..52: a, var 1..52: b) ::presolve
-= abs( (a - b) mod 13 ) in {1,12};
+predicate adjacent(var 1..52: a, var 1..52: b) ::presolve
+= ((x-y) in {13*i+1 | i in -4..3} union {13*i-1 | i in -3..4}) :: domain;
 
-constraint forall(i in 1..51) ( rank_apart(x[i], x[i+1]) );
+constraint forall(i in 1..51) ( adjacent(x[i], x[i+1]) );
 
 % Link x and y
 constraint inverse(x, y) :: domain;
