@@ -180,7 +180,7 @@ array[int,int] of int: transition =
 
 % cost function
 
-predicate part_cost(var breakable: bt, var team: r, var team: t, var 0..max(allperiod): part) ::presolve = (
+predicate part_cost(var breakable: bt, var team: r, var team: t, var 0..max(allperiod): part) :: presolve(autotable) = (
     if dopresolve then
         bt in breakable /\
         let {array[period] of var A..H: lhap} in (
@@ -228,7 +228,7 @@ constraint
     );
 
 % channel break <---> hap (2)
-predicate channel_break_hap(var breakable: bt, array[period] of var A..H: hapt, var team: t) ::presolve(model) =
+predicate channel_break_hap(var breakable: bt, array[period] of var A..H: hapt, var team: t) :: presolve(presolve(model)) =
     bt in breakable /\
     (t in north_team -> hapt[(t mod divsize)+1] = A) /\
     (t in south_team -> hapt[(t mod divsize)+1] = H) /\

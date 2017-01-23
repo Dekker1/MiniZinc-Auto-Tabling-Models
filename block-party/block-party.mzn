@@ -72,7 +72,7 @@ predicate party(array[1..4] of var 0..63: symbols)
 	);
 
 %Linking cube IDs with the three symbols appearing in relevant positions
-predicate link_cube_and_symbols(array[1..4] of var int: cs) ::presolve
+predicate link_cube_and_symbols(array[1..4] of var int: cs) :: presolve(autotable)
 = let{
    var 1..24: pos;
    var int: cube = cs[1];

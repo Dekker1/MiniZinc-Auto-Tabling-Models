@@ -137,7 +137,7 @@ constraint objective = sum (i in rng) (
       score_of(encoding[i],stream[i])
     );
 
-predicate score_computation(var 0..e_unknown:encoding_i, var 0..255:stream_i, var scoreType: score_i) ::presolve(model) =
+predicate score_computation(var 0..e_unknown:encoding_i, var 0..255:stream_i, var scoreType: score_i) :: presolve(autotable(model)) =
   score_i = (bool2int(encoding_i == e_euc_jp) * eucjp_score[stream_i+1]
       + bool2int(encoding_i == e_sjis) * sjis_score[stream_i+1]
       + bool2int(encoding_i == e_utf8) * utf8_score[stream_i+1]
@@ -162,7 +162,7 @@ constraint forall (i in rng) (
   stream_to_status(i,stream,byte_status[i])
 );
 
-predicate link_vars(var int: encoding_i, var int: byte_status_i, var int: char_start_i) ::presolve =
+predicate link_vars(var int: encoding_i, var int: byte_status_i, var int: char_start_i) :: presolve(autotable) =
 (forall([
 %
 % byte_status -> encoding
@@ -403,7 +403,7 @@ predicate stream_to_status_old(int:i, array[int] of int: stream, var int: byte_s
 );
 
 
-predicate link_statuses(var int: byte_status_i, var int: byte_status_im1) ::presolve =
+predicate link_statuses(var int: byte_status_i, var int: byte_status_im1) :: presolve(autotable) =
 (  forall([
 %
 % UTF-8
