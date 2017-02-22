@@ -228,7 +228,7 @@ constraint
     );
 
 % channel break <---> hap (2)
-predicate channel_break_hap(var breakable: bt, array[period] of var A..H: hapt, var team: t) :: presolve(presolve(model)) =
+predicate channel_break_hap(var breakable: bt, array[period] of var A..H: hapt, var team: t) :: presolve(autotable(model)) =
     bt in breakable /\
     (t in north_team -> hapt[(t mod divsize)+1] = A) /\
     (t in south_team -> hapt[(t mod divsize)+1] = H) /\

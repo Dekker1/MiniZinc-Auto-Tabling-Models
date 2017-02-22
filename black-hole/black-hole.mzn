@@ -91,7 +91,7 @@ constraint x[1] == 1;
 
 % Consecutive cards match
 predicate adjacent(var 1..52: a, var 1..52: b) :: presolve(autotable)
-= ((x-y) in {13*i+1 | i in -4..3} union {13*i-1 | i in -3..4}) :: domain;
+= ((a-b) in {13*i+1 | i in -4..3} union {13*i-1 | i in -3..4}) :: domain;
 
 constraint forall(i in 1..51) ( adjacent(x[i], x[i+1]) );
 
